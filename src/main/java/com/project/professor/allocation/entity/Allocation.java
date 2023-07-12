@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Allocation {
@@ -23,6 +24,28 @@ public class Allocation {
 	private Time start;
 	@Column(nullable = false)
 	private Time end;
+	@ManyToOne(optional = false)
+	private Professor professor;
+	@ManyToOne(optional = false)
+	private Course course;
+	
+	
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
 
 	public Long getId() {
 		return id;
