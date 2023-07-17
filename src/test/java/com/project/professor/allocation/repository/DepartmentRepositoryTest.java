@@ -30,16 +30,16 @@ public class DepartmentRepositoryTest {
 
 	@Test
 	void findById() {
-		Long id = 2l;
-		Optional<Department> mamute = departmentRepository.findById(id);
-		Department dpt = mamute.orElse(null);
+		Long id = 3l;
+		Optional<Department> department = departmentRepository.findById(id);
+		Department dpt = department.orElse(null);
 		System.out.println(dpt);
 	}
 
 	@Test
 	void creat() {
 		Department dpt1 = new Department();
-		dpt1.setName("Psicologia");
+		dpt1.setName("Departamento de Ciências da Saúde");
 		dpt1.setId(null);
 		Department dpt2 = departmentRepository.save(dpt1);
 		System.out.println(dpt2);
@@ -56,7 +56,7 @@ public class DepartmentRepositoryTest {
 	}
 	@Test
 	void deleteById() {
-		Long id = 4l;
+		//Long id = 4l;
 		departmentRepository.deleteById(4l);
 	}
 	
