@@ -40,8 +40,10 @@ public class DepartmentRepositoryTest {
 	void creat() {
 		Department dpt1 = new Department();
 		dpt1.setName("Departamento de Ciências da Saúde");
+		
 		dpt1.setId(null);
 		Department dpt2 = departmentRepository.save(dpt1);
+		
 		System.out.println(dpt2);
 	}
 
