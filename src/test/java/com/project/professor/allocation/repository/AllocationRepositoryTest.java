@@ -42,15 +42,15 @@ public class AllocationRepositoryTest {
     @Test
 	void create() {
     	Professor professor = new Professor();
-		professor.setId(2l);
+		professor.setId(9l);
 		//department.setId(null);
 		Course course = new Course();
-		course.setId(1l);
+		course.setId(2l);
 		Allocation allocation = new Allocation();
 		allocation.setId(null);
-		allocation.setDay(DayOfWeek.MONDAY);
-		allocation.setStart(Time.valueOf ("18:30:00"));
-		allocation.setEnd(Time.valueOf ("22:00:00"));
+		allocation.setDay(DayOfWeek.WEDNESDAY);
+		allocation.setStart(Time.valueOf ("14:00:00"));
+		allocation.setEnd(Time.valueOf ("17:30:00"));
 		allocation.setCourse(course);
 		allocation.setProfessor(professor);
 		allocation = allocationRepository.save(allocation);
