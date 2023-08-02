@@ -86,4 +86,9 @@ public class ProfessorService {
 
         return professor;
     }
+
+	public List<Professor> findByDepartment(Long id) {
+		
+		return null;
+	}
 }
