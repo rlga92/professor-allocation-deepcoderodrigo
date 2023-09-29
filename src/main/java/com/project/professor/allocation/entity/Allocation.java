@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 
 @Entity
 public class Allocation {
+	
 	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,7 @@ public class Allocation {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
+	
 	@Schema(example = "19:00:00", type = "string")
 	@Column(nullable = false)
 	private Time start;

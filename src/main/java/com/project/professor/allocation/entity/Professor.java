@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -17,12 +18,21 @@ public class Professor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(unique = true, nullable = false, length = 11)
 	private String cpf;
+	
 	@Column(nullable = false)
 	private String name;
-	@JoinColumn(nullable=false)
-	@ManyToOne(optional = false)
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "department_id", nullable = false)
+    private Long departmentId;
+	
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonIgnoreProperties({"professors"})
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "department_id", nullable = false, insertable = false, updatable = false)
 	private Department department;
 
 	public Department getDepartment() {
