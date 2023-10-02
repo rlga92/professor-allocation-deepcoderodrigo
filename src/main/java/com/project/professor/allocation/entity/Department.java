@@ -17,18 +17,19 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class Department {
+	
 	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(nullable = false)
 	private String name;
 	
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "department")
-    
-	private List<Professor> professors;
+    private List<Professor> professors;
 
  
 	public Long getId() {

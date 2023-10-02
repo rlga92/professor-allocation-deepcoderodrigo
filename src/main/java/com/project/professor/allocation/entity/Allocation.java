@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -21,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 
 @Entity
 public class Allocation {
-	
+
 	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class Allocation {
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
-	
+
 	@Schema(example = "19:00:00", type = "string")
 	@Column(nullable = false)
 	private Time start;
@@ -38,32 +39,39 @@ public class Allocation {
 	@Schema(example = "22:00:00", type = "string")
 	@Column(nullable = false)
 	private Time end;
-	
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(name = "professor_id", nullable = false)
+	private Long professorId;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Column(name = "course_id", nullable = false)
+	private Long courseId;
+
 	@Schema(allOf = Professor.class, accessMode = AccessMode.READ_ONLY)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private Professor professor;
-	
+
 	@Schema(allOf = Course.class, accessMode = AccessMode.READ_ONLY)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private Course course;
 
-	//@JsonProperty(access = Access.WRITE_ONLY)
-	public void setIdProfessor(Long professorId) {
-		Professor professor = new Professor();
-		professor.setId(professorId);
-		this.setProfessor(professor);
-	}
+	// @JsonProperty(access = Access.WRITE_ONLY)
+	/*
+	 * public void setIdProfessor(Long professorId) { Professor professor = new
+	 * Professor(); professor.setId(professorId); this.setProfessor(professor); }
+	 * 
+	 * // @JsonProperty(access = Access.WRITE_ONLY) public void setIdCourse(Long
+	 * courseId) { Course course = new Course(); course.setId(courseId);
+	 * this.setCourse(course); }
+	 */
 
-	//@JsonProperty(access = Access.WRITE_ONLY)
-	public void setIdCourse(Long courseId) {
-		Course course = new Course();
-		course.setId(courseId);
-		this.setCourse(course);
-	}
 	public Professor getProfessor() {
 		return professor;
 	}
@@ -111,11 +119,28 @@ public class Allocation {
 	public void setEnd(Time end) {
 		this.end = end;
 	}
+	
+	
+	public Long getProfessorId() {
+		return professorId;
+	}
+
+	public void setProfessorId(Long professorId) {
+		this.professorId = professorId;
+	}
+
+	public Long getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
 
 	@Override
 	public String toString() {
-		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", professor="
-				+ professor + ", course=" + course + "]";
+		return "Allocation [id=" + id + ", day=" + day + ", start=" + start + ", end=" + end + ", professorId=" + professorId +
+                ", courseId=" + courseId + ", professor=" + professor + ", course=" + course + "]";
 	}
 
 }
