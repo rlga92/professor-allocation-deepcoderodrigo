@@ -52,14 +52,14 @@ public class Allocation {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
-	@JoinColumn(nullable = false)
+	@JoinColumn(name = "professor_id", nullable = false, insertable = false, updatable = false)
 	private Professor professor;
 
 	@Schema(allOf = Course.class, accessMode = AccessMode.READ_ONLY)
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	@JsonIgnoreProperties({"allocations"})
 	@ManyToOne(optional = false)
-	@JoinColumn(nullable = false)
+	@JoinColumn (name = "course_id", nullable = false, insertable = false, updatable = false)
 	private Course course;
 
 	// @JsonProperty(access = Access.WRITE_ONLY)
